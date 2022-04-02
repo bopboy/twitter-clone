@@ -15,6 +15,7 @@ function App() {
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "초기화 중..."}
+      <hr />
       <footer>&copy; {new Date().getFullYear()} Twitter-Clone</footer>
     </>
   );
