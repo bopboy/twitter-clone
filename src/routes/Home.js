@@ -1,2 +1,21 @@
-import React from "react"
-export default () => <span>Home</span>
+import React, { useState } from "react"
+
+const Home = () => {
+    const [tweet, setTweet] = useState("")
+    const onChange = (e) => {
+        const { target: { value } } = e
+        setTweet(value)
+    }
+    const onSubmit = (e) => {
+        e.preventDefault()
+    }
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <input type="text" placeholder="what's on your mind?" maxLength={120} onChange={onChange} />
+                <input type="submit" value="Tweet" />
+            </form>
+        </div>
+    )
+}
+export default Home
