@@ -15,8 +15,8 @@ function App() {
         setIsLoggedIn(false)
         setUserObj(null)
       }
-      setInit(true)
     })
+    setInit(true)
     return setUserObj(null)
   }, [])
   const refreshUser = () => {
