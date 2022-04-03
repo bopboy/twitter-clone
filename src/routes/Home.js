@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { dbInstance, storageService } from "fbase"
 import { collection, addDoc, onSnapshot } from 'firebase/firestore'
-import { ref as ref2, uploadString } from 'firebase/storage'
+import { ref as ref2, uploadString, getDownloadURL } from 'firebase/storage'
 import Tweet from "components/Tweet"
 import { v4 as uuidv4 } from 'uuid'
 
@@ -22,11 +22,21 @@ const Home = ({ userObj }) => {
     }
     const onSubmit = async (e) => {
         e.preventDefault()
-        const fileRef = ref2(storageService, `${userObj.uid}/${uuidv4()}`)
-        const response = await uploadString(fileRef, attachment, 'data_url')
-        console.log(response)
-        // await addDoc(collection(dbInstance, "tweets"), { text: tweet, createdAt: Date.now(), creatorId: userObj.uid })
+        let attachmentUrl = ""
+        if (attachment != "") {
+            const fileRef = ref2(storageService, `${userObj.uid}/${uuidv4()}`)
+            await uploadString(fileRef, attachment, 'data_url')
+            attachmentUrl = await getDownloadURL(fileRef)
+        }
+        const newTweet = {
+            text: tweet,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            attachmentUrl
+        }
+        await addDoc(collection(dbInstance, "tweets"), newTweet)
         setTweet("")
+        setAttachment("")
     }
     const onFileChange = (e) => {
         const { target: { files } } = e
