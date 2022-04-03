@@ -26,8 +26,7 @@ function App() {
   return (
     <>
       {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} /> : "초기화 중..."}
-      <hr />
-      <footer>&copy; {new Date().getFullYear()} Twitter-Clone</footer>
+      <footer style={{ textAlign: "center", marginTop: 20 }}>&copy; {new Date().getFullYear()} Twitter-Clone</footer>
     </>
   );
 }
