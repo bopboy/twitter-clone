@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { dbInstance } from "fbase"
 import { collection, addDoc, getDocs, onSnapshot, doc } from 'firebase/firestore'
+import Tweet from "components/Tweet"
 
 const Home = ({ userObj }) => {
     const [tweet, setTweet] = useState("")
@@ -22,7 +23,7 @@ const Home = ({ userObj }) => {
     }
     return (
         <div>
-            {tweets.map(t => (<div key={t.id}><h4>{t.text}</h4></div>))}
+            {tweets.map(t => (<Tweet key={t.id} tweetObj={t} isOwner={t.creatorId === userObj.uid} />))}
             <form onSubmit={onSubmit}>
                 <input type="text" placeholder="what's on your mind?" maxLength={120} onChange={onChange} value={tweet} />
                 <input type="submit" value="tweet" />
