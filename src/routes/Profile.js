@@ -22,13 +22,12 @@ const Profile = ({ refreshUser, userObj }) => {
             refreshUser()
         }
     }
-    const getMyTweets = async () => {
-        const res = await getDocs(collection(dbInstance, "tweets"), where("creatorId", "==", userObj.uid), orderBy("createdAt"))
-        // console.log(res.docs.map(doc => doc.data()))
-    }
-    useEffect(() => {
-        getMyTweets()
-    }, [])
+    // const getMyTweets = async () => {
+    //     const res = await getDocs(collection(dbInstance, "tweets"), where("creatorId", "==", userObj.uid), orderBy("createdAt"))
+    // }
+    // useEffect(() => {
+    //     getMyTweets()
+    // }, [])
     return (
         <>
             <span>Profile</span>

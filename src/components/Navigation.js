@@ -6,7 +6,7 @@ const Navigation = ({ userObj }) => {
         <nav>
             <ul>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/profile">{userObj.displayName}'s Profile</Link></li>
+                <li><Link to="/profile">{userObj?.displayName ? `${userObj.displayName}'s Profile` : "Profile"}</Link></li>
             </ul>
             <hr />
         </nav>
