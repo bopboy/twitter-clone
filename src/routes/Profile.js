@@ -4,7 +4,7 @@ import { signOut, updateProfile } from 'firebase/auth'
 import { useHistory } from "react-router-dom"
 import { collection, getDocs, orderBy, where } from "firebase/firestore"
 
-const Profile = ({ userObj }) => {
+const Profile = ({ refreshUser, userObj }) => {
     const history = useHistory()
     const [newDisplayName, setNewDisplayName] = useState(userObj.displayName)
     const onLogOutClick = () => {
@@ -19,6 +19,7 @@ const Profile = ({ userObj }) => {
         e.preventDefault()
         if (userObj.displayName !== newDisplayName) {
             await updateProfile(authService.currentUser, { displayName: newDisplayName })
+            refreshUser()
         }
     }
     const getMyTweets = async () => {
