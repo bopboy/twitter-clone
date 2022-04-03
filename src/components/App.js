@@ -3,7 +3,7 @@ import AppRouter from "components/Router";
 import { authService } from 'fbase'
 
 function App() {
-  const [init, setInit] = useState(false)
+  const [init, setInit] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userObj, setUserObj] = useState(null)
   useEffect(() => {
@@ -15,8 +15,8 @@ function App() {
         setIsLoggedIn(false)
         setUserObj(null)
       }
+      setInit(true)
     })
-    setInit(true)
     return setUserObj(null)
   }, [])
   const refreshUser = () => {
