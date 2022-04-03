@@ -9,6 +9,7 @@ const Home = ({ userObj }) => {
     const [tweet, setTweet] = useState("")
     const [tweets, setTweets] = useState([])
     const [attachment, setAttachment] = useState("")
+    const [attachmentRef, setAttachmentRef] = useState("")
     const ref = useRef()
     useEffect(() => {
         onSnapshot(collection(dbInstance, "tweets"), (snapshot) => {
@@ -23,8 +24,9 @@ const Home = ({ userObj }) => {
     const onSubmit = async (e) => {
         e.preventDefault()
         let attachmentUrl = ""
-        if (attachment != "") {
+        if (attachment !== "") {
             const fileRef = ref2(storageService, `${userObj.uid}/${uuidv4()}`)
+            setAttachmentRef(fileRef)
             await uploadString(fileRef, attachment, 'data_url')
             attachmentUrl = await getDownloadURL(fileRef)
         }
@@ -51,7 +53,8 @@ const Home = ({ userObj }) => {
     const onClearAttachment = () => setAttachment(null)
     return (
         <div>
-            {tweets.map(t => (<Tweet key={t.id} tweetObj={t} isOwner={t.creatorId === userObj.uid} />))}
+            {tweets.map(t => (<Tweet key={t.id} tweetObj={t} isOwner={t.creatorId === userObj.uid} attachmentRef={attachmentRef} />))}
+            <hr />
             <form onSubmit={onSubmit}>
                 <input type="text" placeholder="what's on your mind?" maxLength={120} onChange={onChange} value={tweet} />
                 <input type="submit" value="tweet" />&nbsp;
